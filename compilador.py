@@ -1,6 +1,8 @@
 from scanner import *
 from generador import *
 from parse import *
+import ctypes
+import subprocess
 
 
 def main():
@@ -15,13 +17,13 @@ def main():
             IMPRIMIR "Hola" 
             LET a = a + 1 
         ENDWHILE
-
+ 
         IMPRIMIR "Fin del programa"
     '''
 
     # Initialize the scanner, generador, and parser.
     scanner = Scanner(source)
-    generador = Generador("out.c")
+    generador = Generador("codigo_Objeto.c")
     parser = Parser(scanner, generador)
 
     parser.programa() # Start the parser.
