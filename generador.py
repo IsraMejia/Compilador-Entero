@@ -17,5 +17,9 @@ class Generador:
     def generaArchivo(self):
         with open(self.fullPath, 'w') as outputFile:
             outputFile.write(self.encabezado + self.code)
+    
+    def generaStringCode(self):
+        codec = self.encabezado + self.code
+        return codec
 
 

@@ -1,8 +1,22 @@
 from scanner import *
 from generador import *
-from parse import *
-import ctypes
+from parse import * 
 import subprocess
+
+def c_code_to_asm(c_code):
+    # Crear un archivo temporal con el código C
+    with open('temp.c', 'w') as f:
+        f.write(c_code)
+
+    # Llamar a gcc para compilar el código C y generar el ensamblador
+    subprocess.run(['gcc', '-S', 'temp.c'])
+
+    # Leer el contenido del archivo ensamblador generado
+    with open('temp.s', 'r') as f:
+        asm_code = f.read()
+
+    return asm_code
+
 
 
 def main():
@@ -30,6 +44,12 @@ def main():
     generador.generaArchivo() # Write the output to file.
     
     
-    print(" \n\t\tFin del Compilador PERRON\n") 
+    asm_code = c_code_to_asm(generador.generaStringCode()) 
+    archivo = open("codigoASM.asm", "w")
+    archivo.write(asm_code)
+    archivo.close()
 
+
+    print(" \n\t\tFin del Compilador PERRON\n")  
+     
 main()
